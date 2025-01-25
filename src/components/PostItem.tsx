@@ -1,22 +1,23 @@
 import { FC } from 'react'
 import {IPost} from '../types/Post'
+import MyButton from './UI/button/MyButton'
 
-export interface PostProps {
-    posts: IPost[]
-}
 
-const PostItem: FC<IPost> = (post) => {
-    
+
+const PostItem: FC<IPost> = ({id, title, body, remove}) => {
+    const newPost = {id, title, body}
   return (
     <div className="post">
         <div className="post__content">
-            <strong>{post.id}.{post.title}</strong>
+            <strong>{id}.{title}</strong>
             <div>
-                {post.body}
+                {body}
             </div>
     </div>
     <div className="post__btns">
-        <button>Удалить пост</button>
+      {/* <button onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</button> */}
+      {/* <MyButton  onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</MyButton> */}
+      <MyButton  onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</MyButton>
         </div>
     </div>
   )

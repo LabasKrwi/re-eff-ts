@@ -1,3 +1,4 @@
+import { IPost } from "../../../types/Post";
 
 export interface MyButtonProps {
     children: string;
@@ -9,4 +10,16 @@ export interface MyInputProps {
     placeholder: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement >) => void
+}
+
+export interface PostFormProps {
+    create: (newPost: IPost) => void;
+    posts: IPost[]
+}
+
+export interface MySelectProps {
+    defaultValue: string;
+    options: {value: string; name: string; key: string}[];
+    value: string;
+    onChange?: (event: any) => void
 }
