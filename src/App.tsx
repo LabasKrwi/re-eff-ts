@@ -1,70 +1,91 @@
-import './styles/App.css';
-import PostList from './components/PostList';
-import PostForm from './components/UI/PostForm';
-import { useState } from 'react';
-import { IPost } from './types/Post';
-import MySelect from './components/UI/select/MySelect';
-import MyInput from './components/UI/input/MyInput';
+// import './styles/App.css';
+// import PostList from './components/PostList';
+// import PostForm from './components/PostForm';
+// import { useCallback, useMemo, useState } from 'react';
+// import { IPost } from './types/Post';
+// import PostFilter, {IFilter} from './components/PostFilter';
+// import MyModal from './components/UI/MyModal/MyModal';
+// import MyButton from './components/UI/button/MyButton';
+// export const App = () => {
+
+//   const [posts, setPosts] = useState<IPost[]>([
+//         {id: 1, title: 'zdadwaw', body: 'awddadwdw'},
+//         {id: 2, title: 'wda 2', body: 'jjjDescriptaion'},
+//         {id: 3, title: 'ddaaww 3', body: 'xxxDescription'}
+//       ])
+
+//       const [filter, setFilter] = useState<IFilter>({sort: '', query: ''})
+//       const [modal, setModal] = useState(false)
 
 
-export const App = () => {
+//       type SortableKeys = Extract<keyof IPost, string>;
+ 
 
-  const [posts, setPosts] = useState<IPost[]>([
-        {id: 1, title: 'zdadwaw', body: 'awddadwdw'},
-        {id: 2, title: 'wda 2', body: 'jjjDescriptaion'},
-        {id: 3, title: 'ddaaww 3', body: 'xxxDescription'}
-      ])
-      const [selectedSort, setSelectedSort] = useState<any[]>();
-      const [searchQuery, setSearchQuery] = useState('')
+//       const isSortableKey = useCallback((key: any): key is SortableKeys => {
+//         return key === 'title' || key === 'body';
+//       }, [])
 
-
-      const sortedPosts = [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-      
-
-
-
-      const createPost = (newPost: IPost) => {
-        setPosts([...posts, newPost])
-      }
     
-      const removePost = (post: IPost) => {
-        setPosts(posts.filter(p => p.id !== post.id))
-      }
 
-      const sortPosts = (sort: string) => {
-        console.log(sort);
-        
-        setSelectedSort(sort);
-      }
-      
+//   const sortedPosts = useMemo<IPost[]>(() => {
+//     if (filter.sort && isSortableKey(filter.sort)) {
+//       return [...posts].sort((a, b) => {
+//         const aValue = a[filter.sort as keyof IPost];
+//         const bValue = b[filter.sort as keyof IPost];
+
+//         if (typeof aValue === 'string' && typeof bValue === 'string') {
+//           return aValue.localeCompare(bValue);
+//         }
+//         return 0; 
+//           }); 
+//         }
+//             return posts;
+//       }, [filter.sort, posts, isSortableKey]);
+    
+//       const sortedAndSearchedPosts = useMemo(() => {
+//         return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()));
+//       }, [filter.query, sortedPosts]);
+    
+//       const createPost = (newPost: IPost) => {
+//         setPosts([...posts, newPost]);
+//         setModal(false);
+//       };
+    
+//       const removePost = (post: IPost) => {
+//         setPosts(posts.filter(p => p.id !== post.id));
+//       };
+    
   
+//   return (
+//     <div className="App">
+//       <MyButton style={{marginTop: '10px'}}children={'Создать пост'} onClick={() => setModal(true)}/>
+//       <MyModal setVisible={setModal} visible={modal} children={
+//         <PostForm posts={posts} create={createPost}/>
+//       }/>
+//         <hr style={{margin:'15px 0'}}/>
+//       <PostFilter filter={filter} setFilter={setFilter}/>
+//       <PostList  remove={removePost} posts={sortedAndSearchedPosts}/>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+
+import { BrowserRouter } from 'react-router-dom';
+import './styles/App.css'
+import { FC } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import AppRouter from './AppRouter';
+
+export const App: FC = () => {
+
   return (
-    <div className="App">
-      <PostForm posts={posts}create={createPost}/>
-        <hr style={{margin:'15px 0'}}/>
-      <div>
-        <MyInput 
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
-          placeholder='Поиск'
-        />
-        <MySelect 
-          value={selectedSort}
-          onChange={sortPosts}
-          options={[
-            {value:'title', name: 'По названию', key: 'title'},
-            {value: 'body', name: 'По описанию', key: 'body'}
-        ]} defaultValue='Сортировка по'/>
-      </div>
-      {posts.length
-        ?
-          <PostList remove={removePost} posts={sortedPosts}/>
-        :
-        <h1 style={{textAlign: 'center'}}>Посты отсутсвуют</h1>
-      }
-      
-    </div>
-  );
-};
+      <BrowserRouter>
+        <Navbar />
+        <AppRouter />
+      </BrowserRouter>
+  )
+}
 
 export default App;

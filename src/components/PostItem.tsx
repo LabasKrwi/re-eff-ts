@@ -1,26 +1,26 @@
 import { FC } from 'react'
-import {IPost} from '../types/Post'
+import { IPostItemProps} from '../types/Post'
 import MyButton from './UI/button/MyButton'
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
+const PostItem: FC<IPostItemProps> = (({post, remove}) => {
+  const router = useNavigate();
 
-
-const PostItem: FC<IPost> = ({id, title, body, remove}) => {
-    const newPost = {id, title, body}
   return (
     <div className="post">
-        <div className="post__content">
-            <strong>{id}.{title}</strong>
+        <div  className="post__content">
+            <strong>{post.id}.{post.title}</strong>
             <div>
-                {body}
+                {post.body}
             </div>
     </div>
     <div className="post__btns">
-      {/* <button onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</button> */}
-      {/* <MyButton  onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</MyButton> */}
-      <MyButton  onClick={remove ? () => remove(newPost) : () => {}}>Удалить пост</MyButton>
+      <MyButton key={uuidv4()} onClick={() => router(`/posts/${post.id}`)}>Открыть</MyButton>
+      <MyButton key={uuidv4()} onClick={remove ? () => remove(post) : () => {}}>Удалить пост</MyButton>
         </div>
     </div>
   )
-}
+});
 
 export default PostItem

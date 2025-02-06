@@ -1,9 +1,8 @@
 import React, {  Ref } from 'react'
-import { MyInputProps } from '../UITypes/Types';
 import classes from './MyInput.module.css'
-const MyInput = React.forwardRef<HTMLInputElement, MyInputProps>(({placeholder, ...props}, ref: Ref<HTMLInputElement>) => {
+const MyInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(({...props}, ref: Ref<HTMLInputElement>) => {
   return (
-    <input ref={ref} {...props} className={classes.myInput} type="text" placeholder={placeholder}/>
+    <input  ref={ref} className={classes.myInput} {...props}/>
   );
 });
 

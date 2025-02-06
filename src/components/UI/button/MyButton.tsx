@@ -1,15 +1,12 @@
-import React, { FC } from 'react'
-import { MyButtonProps } from '../UITypes/Types'
+import { FC } from 'react'
 import classes from './MyButton.module.css'
 
 
 
-const MyButton:FC<MyButtonProps> = ({children, ...props}) => {
+const MyButton:FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ ...props}) => {
     
   return (
-    <button className={classes.myBtn} {...props}>
-        {children}
-    </button>
+    <button className={classes.myBtn} {...props}></button>
   )
 }
 
